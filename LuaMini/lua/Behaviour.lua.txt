@@ -1,0 +1,34 @@
+﻿local class = require(class_path)
+
+local instance = class:new()
+instance.gameObject = gameObject
+
+local Empty = function() end
+local Handler = function (instance , method)		
+	return function () 
+		return method(instance)
+	end
+end
+
+
+Start = Empty
+if instance.Start ~= nil then
+	Start = Handler(instance , instance.Start)
+end
+
+Update = Empty
+if instance.Update ~= nil then
+	Update = Handler(instance , instance.Update)
+end
+
+OnDestroy = Empty
+if instance.OnDestroy ~= nil then
+	OnDestroy = Handler(instance , instance.OnDestroy)
+end
+
+FixedUpdate = Empty
+if instance.FixedUpdate ~= nil then
+	FixedUpdate = Handler(instance, instance.FixedUpdate)
+end
+
+return instance
